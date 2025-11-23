@@ -172,6 +172,18 @@ app.delete('/artisans/:id', async (req, res) => {
   }
 });
 
+// GET /stats/total — Return total number of artisans
+app.get('/stats/total', async (req, res) => {
+  try {
+    const result = await client.query('SELECT COUNT(*) AS total FROM artisans');
+    const total = parseInt(result.rows[0].total, 10);
+    res.status(200).json({ total_artisans: total });
+  } catch (err) {
+    console.error('Error fetching total artisans:', err.message);
+    res.status(500).json({ error: 'Failed to retrieve total count' });
+  }
+});
+
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {

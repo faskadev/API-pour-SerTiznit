@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { Client } = require('pg');
 
@@ -6,11 +7,11 @@ app.use(express.json());
 
 // Database connection configuration
 const client = new Client({
-  host: 'localhost',
-  port: 5432,
-  user: 'postgres',
-  password: '0508', // ⚠️ Replace with your actual PostgreSQL password
-  database: 'sertiznit_db'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 // Connect to the database
